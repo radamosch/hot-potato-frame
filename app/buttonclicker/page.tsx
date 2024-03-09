@@ -1,6 +1,14 @@
 import { getFrameMetadata } from '@coinbase/onchainkit';
+import { createPublicClient, http , getContract } from 'viem'
+import { base } from 'viem/chains';
+
 import type { Metadata } from 'next';
 import { NEXT_PUBLIC_URL } from '../config';
+
+
+import ClickTheButtonABI from '../_contracts/ClickTheButtonAbi';
+import { CLICK_THE_BUTTON_CONTRACT_ADDR } from '../config';
+
 
 const frameMetadata = getFrameMetadata({
   buttons: [
@@ -16,7 +24,7 @@ const frameMetadata = getFrameMetadata({
     },
   ],
   image: {
-    src: `${NEXT_PUBLIC_URL}/park-4.png`,
+    src: `${NEXT_PUBLIC_URL}/hot-potato.png`,
     aspectRatio: '1:1',
   },
   input: {
@@ -31,18 +39,36 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Click my Button',
     description: "Don't click the button!",
-    images: [`${NEXT_PUBLIC_URL}/button.png`],
+    images: [`${NEXT_PUBLIC_URL}/hot-potato.png`],
   },
   other: {
     ...frameMetadata,
   },
 };
 
-export default function Page() {
+export default async function Page() {
+
+  const client = createPublicClient({
+    chain: base,
+    transport: http(),
+  });
+
+  const contract = getContract({
+    address: CLICK_THE_BUTTON_CONTRACT_ADDR,
+    abi: ClickTheButtonABI,
+    client,
+  });
+
+  const allClicks= await contract.read.getAllClicks();
+
+  const blockNumber = await client.getBlockNumber();
+
   return (
     <>
-      <h1>Not sure what to put here...</h1>
-      <p>TODO</p>
+      <h1>Let's make it hot!</h1>
+      <p>Base block number (reading contract): {blockNumber.toString()}</p>
+      <p></p>
+      <img src={NEXT_PUBLIC_URL+"/hot-potato.png"}/>
     </>
   );
 }
