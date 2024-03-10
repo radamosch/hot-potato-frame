@@ -1,0 +1,13 @@
+{
+    "name": "#1",
+    "description": "This is a hot potato. Buy it. Flip it. It gets hotter!",
+    "image": "https://hot-potato-frame.vercel.app/hot-potato.png",
+    "edition": 1,
+    "creator": "Mr Potato",
+    "attributes": [
+      {
+        "trait_type": "Hotness",
+        "value": "1"
+      }
+    ]
+  }

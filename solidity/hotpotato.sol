@@ -21,10 +21,9 @@ pragma solidity 0.8.19;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
-import "erc721a/contracts/ERC721A.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-
-contract HotPotato is ERC721A, Ownable, Pausable {
+contract HotPotato is ERC721, Ownable, Pausable {
 	using Strings for uint256;
 
     string private baseURI;
@@ -32,16 +31,18 @@ contract HotPotato is ERC721A, Ownable, Pausable {
     bool private _locked = false; // for re-entrancy guard
 
     uint256 public constant MAX_SUPPLY = 1;
-    uint256 public CURRENT_PRICE = 0.002 ether; // initial price
+    uint256 public CURRENT_PRICE = 0.00002 ether; // initial price
 
     uint256 public constant BASIS_POINTS = 10000; // bps
     uint256 public constant PRICE_INCREASE_BP = 1000; // bps 10%
     uint256 public constant FEE_BP = 350; // bps 3.5%
 
-    uint256 public constant TOKEN_ID = 0; // Only 1 token
+    uint256 public constant TOKEN_ID = 1; // Only 1 token
+
+    uint256 public FLIP_COUNT = 0;
 
     constructor(string memory _initBaseURI)
-        ERC721A("Hot Potato", "HP")
+        ERC721("Hot Potato", "HP")
     {
         setBaseURI(_initBaseURI);
         _safeMint(msg.sender, 1);
@@ -53,39 +54,31 @@ contract HotPotato is ERC721A, Ownable, Pausable {
         return baseURI;
     }
 
-    // start at token 1
-    function _startTokenId() internal pure override returns (uint256) {
-        return 0;
-    }
-
     function setBaseURI(string memory _newBaseURI) public onlyOwner {
         baseURI = _newBaseURI;
     }
 
 
-    function purchase() external payable{
+    function purchase() external payable nonReentrant() {
         require(msg.value >= CURRENT_PRICE, "No deal!");
-        require(msg.sender != ownerOf(TOKEN_ID), "No deal!");
+        require(msg.sender != ownerOf(TOKEN_ID), "No buy from self!");
 
         // amount sent  = at least 100% + PRICE_INCREASE + FEE
         uint256 onePc = msg.value*BASIS_POINTS/(BASIS_POINTS+PRICE_INCREASE_BP+FEE_BP);
         uint256 salePrice = onePc*(BASIS_POINTS+PRICE_INCREASE_BP)/BASIS_POINTS;
 
         payable(ownerOf(TOKEN_ID)).transfer(salePrice);
-
-        //uint256 fee = (onePc*FEE_BP)/BASIS_POINTS; // we just leave this in the contract
-
+        
+        // transfer the token to the new owner
+        _transfer(ownerOf(TOKEN_ID), msg.sender, TOKEN_ID);
+        CURRENT_PRICE = nextPrice();
+        FLIP_COUNT +=1;
     }
+
 
     function nextPrice() public view returns (uint256) {
         return CURRENT_PRICE + (CURRENT_PRICE*(PRICE_INCREASE_BP+FEE_BP)/BASIS_POINTS);
     }
-
-/*
-    function setCurrentPrice(uint256 _price) external onlyOwner {
-        CURRENT_PRICE = _price;
-    }
-*/
 
     function withdraw() external onlyOwner {
         uint256 balance = address(this).balance;
