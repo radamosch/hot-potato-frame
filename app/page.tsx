@@ -1,20 +1,18 @@
 import { getFrameMetadata } from '@coinbase/onchainkit';
-import { createPublicClient, http , getContract } from 'viem'
-import { base } from 'viem/chains';
+import { getContract, formatEther } from 'viem'
+import  client  from './client';
 
 import type { Metadata } from 'next';
-import { NEXT_PUBLIC_URL } from './config';
+import { HOT_POTATO_ADDR, NEXT_PUBLIC_URL } from './config';
 
-
-import ClickTheButtonABI from './_contracts/ClickTheButtonAbi';
-import { CONTRACT_ADDR } from './config';
+import abi from './_contracts/HotPotatoAbi';
 
 
 const frameMetadata = getFrameMetadata({
   buttons: [
     {
       action: 'tx',
-      label: 'Click the Button',
+      label: 'Buy Now!',
       target: `${NEXT_PUBLIC_URL}/api/potato`,
     },
     {
@@ -27,18 +25,19 @@ const frameMetadata = getFrameMetadata({
     src: `${NEXT_PUBLIC_URL}/hot-potato.png`,
     aspectRatio: '1:1',
   },
+  /*
   input: {
     text: "Don't click the button!",
-  },
+  },*/
   postUrl: `${NEXT_PUBLIC_URL}/api/aftertx`,
 });
 
 export const metadata: Metadata = {
-  title: 'Click my Button',
-  description: "Don't click the button!",
+  title: 'Buy me now!',
+  description: "Hurry up!",
   openGraph: {
-    title: 'Click my Button',
-    description: "Don't click the button!",
+    title: 'Buy me now!',
+    description: "Hurry up!",
     images: [`${NEXT_PUBLIC_URL}/hot-potato.png`],
   },
   other: {
@@ -48,18 +47,15 @@ export const metadata: Metadata = {
 
 export default async function Page() {
 
-  const client = createPublicClient({
-    chain: base,
-    transport: http(),
-  });
-
   const contract = getContract({
-    address: CONTRACT_ADDR,
-    abi: ClickTheButtonABI,
+    address: HOT_POTATO_ADDR,
+    abi: abi,
     client,
   });
 
-  const allClicks= await contract.read.getAllClicks();
+  const currentPrice= await contract.read.CURRENT_PRICE();
+  //console.log(currentPrice)
+  const nextPrice= await contract.read.nextPrice();
 
   const blockNumber = await client.getBlockNumber();
 
@@ -69,6 +65,11 @@ export default async function Page() {
       <p>Base block number (reading contract): {blockNumber.toString()}</p>
       <p>This hot potato is a unique NFT.</p>
       <p>Every time it flips, it's price increases by 10%</p>
+
+      <p>Current price: {formatEther(currentPrice as bigint)} ETH</p>
+
+      <p>Next price: {formatEther(nextPrice as bigint)} ETH</p>
+
       <img src={NEXT_PUBLIC_URL+"/hot-potato.png"}/>
     </>
   );

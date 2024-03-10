@@ -1,11 +1,12 @@
 import { FrameRequest, getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit/frame';
 import { NextRequest, NextResponse } from 'next/server';
-import { encodeFunctionData, formatEther, parseEther, parseGwei} from 'viem';
+import { encodeFunctionData, formatEther, parseEther, parseGwei, getContract} from 'viem';
 import { base } from 'viem/chains';
 import type { FrameTransactionResponse } from '@coinbase/onchainkit/frame';
 
-import ClickTheButtonABI from '../../_contracts/ClickTheButtonAbi';
-import { CONTRACT_ADDR } from '../../config';
+import abi from '../../_contracts/HotPotatoAbi';
+import { HOT_POTATO_ADDR } from '../../config';
+import client from "../../client"
 
 async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     const body: FrameRequest = await req.json();
@@ -15,9 +16,19 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
       return new NextResponse('Message not valid', { status: 500 });
     }
   
+    const contract = getContract({
+      address: HOT_POTATO_ADDR,
+      abi: abi,
+      client,
+    });
+
+    const currentPrice= await contract.read.CURRENT_PRICE();
+
+    console.log(currentPrice);
+
     const data = encodeFunctionData({
-        abi: ClickTheButtonABI,
-        functionName: 'clickTheButton',
+        abi: abi,
+        functionName: 'purchase',
       });
       
       const txData: FrameTransactionResponse = {
@@ -26,8 +37,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         params: {
           abi: [],
           data,
-          to: CONTRACT_ADDR,
-          value: parseGwei('10000').toString(), // 0.00001 ETH
+          to: HOT_POTATO_ADDR,
+          value: (currentPrice as string)
+         // value: parseGwei('10000').toString(), // 0.00001 ETH
         },
       };
 
