@@ -8,21 +8,29 @@ import { HOT_POTATO_ADDR, NEXT_PUBLIC_URL } from './config';
 import abi from './_contracts/HotPotatoAbi';
 
 
-const frameMetadata = getFrameMetadata({
+const getButtonPrice = ()=>{ 
+  
+  // how to get the current price here async?
+ 
+  return "";
+}
+
+const frameMetadata = getFrameMetadata(
+{
   buttons: [
     {
       action: 'tx',
-      label: 'Buy Now!',
+      label: `🔥  Buy:  ${getButtonPrice()} 🔥`,
       target: `${NEXT_PUBLIC_URL}/api/potato`,
     },
     {
       action: 'link',
-      label: 'WTF?',
+      label: 'INFO?',
       target: `${NEXT_PUBLIC_URL}/`,
     },
   ],
   image: {
-    src: `${NEXT_PUBLIC_URL}/hot-potato.png`,
+    src: `${NEXT_PUBLIC_URL}/potato.webp`,
     aspectRatio: '1:1',
   },
   /*
@@ -38,7 +46,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Buy me now!',
     description: "Hurry up!",
-    images: [`${NEXT_PUBLIC_URL}/hot-potato.png`],
+    images: [`${NEXT_PUBLIC_URL}/potato.webp`],
   },
   other: {
     ...frameMetadata,
@@ -74,7 +82,7 @@ export default async function Page() {
       <p>Flip count: {(flipCount as bigint).toString()}</p>
 
 
-      <img src={NEXT_PUBLIC_URL+"/hot-potato.png"}/>
+      <img src={NEXT_PUBLIC_URL+"/potato.webp"}/>
     </>
   );
 }

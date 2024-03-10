@@ -1,7 +1,7 @@
 {
     "name": "Hot Potato",
     "description": "This is a hot potato. Buy it. Flip it. It gets hotter!",
-    "image": "https://hot-potato-frame.vercel.app/hot-potato.png",
+    "image": "https://hot-potato-frame.vercel.app/potato.webp",
     "external_link": "https://hot-potato-frame.vercel.app/",
     "seller_fee_basis_points": 10000, 
     "fee_recipient": "0xB58C32cC59c325F5d0550aA6D22877d507B1109a" 

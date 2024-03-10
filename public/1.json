@@ -1,7 +1,7 @@
 {
     "name": "#1",
     "description": "This is a hot potato. Buy it. Flip it. It gets hotter!",
-    "image": "https://hot-potato-frame.vercel.app/hot-potato.png",
+    "image": "https://hot-potato-frame.vercel.app/potato.webp",
     "edition": 1,
     "creator": "Mr Potato",
     "attributes": [

@@ -15,22 +15,23 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       buttons: [
         {
           action: 'tx',
-          label: 'Click Again!',
+          label: `🔥  Buy again: 🔥`,
           target: `${NEXT_PUBLIC_URL}/api/potato`,
         },
         {
           action: 'link',
-          label: 'WTF?',
+          label: 'INFO?',
           target: `${NEXT_PUBLIC_URL}/`,
         },
       ],
       image: {
-        src: `${NEXT_PUBLIC_URL}/hot-potato-2.png`,
+        src: `${NEXT_PUBLIC_URL}/potato-sold.png`,
         aspectRatio: '1:1',
       },
+      /*
       input: {
         text: 'Hot potato flipped!',
-      },
+      },*/
       postUrl: `${NEXT_PUBLIC_URL}/api/aftertx`,
     }),
   );
