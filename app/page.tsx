@@ -1,5 +1,5 @@
 import { getFrameMetadata } from '@coinbase/onchainkit';
-import { getContract, formatEther } from 'viem'
+import { getContract, formatEther , } from 'viem'
 import  client  from './client';
 
 import type { Metadata } from 'next';
@@ -67,6 +67,7 @@ export default async function Page() {
       <p>Every time it flips, it's price increases by 10%</p>
 
       <p>Current price: {formatEther(currentPrice as bigint)} ETH</p>
+      <p>Current price wei: {(currentPrice as bigint).toString()}</p>
 
       <p>Next price: {formatEther(nextPrice as bigint)} ETH</p>
 

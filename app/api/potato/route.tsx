@@ -38,7 +38,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
           abi: [],
           data,
           to: HOT_POTATO_ADDR,
-          value: (currentPrice as string)
+          value: (currentPrice as bigint).toString()
          // value: parseGwei('10000').toString(), // 0.00001 ETH
         },
       };

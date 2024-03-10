@@ -61,18 +61,21 @@ contract HotPotato is ERC721, Ownable, Pausable {
 
     function purchase() external payable nonReentrant() {
         require(msg.value >= CURRENT_PRICE, "No deal!");
-        require(msg.sender != ownerOf(TOKEN_ID), "No buy from self!");
+        //require(msg.sender != ownerOf(TOKEN_ID), "No buy from self!");
 
         // amount sent  = at least 100% + PRICE_INCREASE + FEE
         uint256 onePc = msg.value*BASIS_POINTS/(BASIS_POINTS+PRICE_INCREASE_BP+FEE_BP);
         uint256 salePrice = onePc*(BASIS_POINTS+PRICE_INCREASE_BP)/BASIS_POINTS;
 
-        payable(ownerOf(TOKEN_ID)).transfer(salePrice);
-        
         // transfer the token to the new owner
+        payable(ownerOf(TOKEN_ID)).transfer(salePrice);
+
         _transfer(ownerOf(TOKEN_ID), msg.sender, TOKEN_ID);
         CURRENT_PRICE = nextPrice();
         FLIP_COUNT +=1;
+
+       
+
     }
 
 
