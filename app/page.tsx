@@ -67,7 +67,8 @@ export default async function Page() {
     <>
       <h1>Let's make it hot!</h1>
       <p>Base block number (reading contract): {blockNumber.toString()}</p>
-      <p></p>
+      <p>This hot potato is a unique NFT.</p>
+      <p>Every time it flips, it's price increases by 10%</p>
       <img src={NEXT_PUBLIC_URL+"/hot-potato.png"}/>
     </>
   );
