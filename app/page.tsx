@@ -56,13 +56,13 @@ export default async function Page() {
   const currentPrice= await contract.read.CURRENT_PRICE();
   //console.log(currentPrice)
   const nextPrice= await contract.read.nextPrice();
+  const flipCount= await contract.read.FLIP_COUNT();
 
   const blockNumber = await client.getBlockNumber();
 
   return (
     <>
       <h1>Let's make it hot!</h1>
-      <p>Base block number (reading contract): {blockNumber.toString()}</p>
       <p>This hot potato is a unique NFT.</p>
       <p>Every time it flips, it's price increases by 10%</p>
 
@@ -70,6 +70,9 @@ export default async function Page() {
       <p>Current price wei: {(currentPrice as bigint).toString()}</p>
 
       <p>Next price: {formatEther(nextPrice as bigint)} ETH</p>
+
+      <p>Flip count: {(flipCount as bigint).toString()}</p>
+
 
       <img src={NEXT_PUBLIC_URL+"/hot-potato.png"}/>
     </>
