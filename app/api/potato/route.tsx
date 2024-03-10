@@ -5,7 +5,7 @@ import { base } from 'viem/chains';
 import type { FrameTransactionResponse } from '@coinbase/onchainkit/frame';
 
 import ClickTheButtonABI from '../../_contracts/ClickTheButtonAbi';
-import { CLICK_THE_BUTTON_CONTRACT_ADDR } from '../../config';
+import { CONTRACT_ADDR } from '../../config';
 
 async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
     const body: FrameRequest = await req.json();
@@ -26,8 +26,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
         params: {
           abi: [],
           data,
-          to: CLICK_THE_BUTTON_CONTRACT_ADDR,
-          value: parseGwei('10000').toString(), // 0.00001 ETH
+          to: CONTRACT_ADDR,
+          value: parseGwei('40000').toString(), // 0.00001 ETH
         },
       };
 

@@ -20,8 +20,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         },
         {
           action: 'link',
-          label: 'Leaderboard',
-          target: `${NEXT_PUBLIC_URL}/buttonclicker`,
+          label: 'WTF?',
+          target: `${NEXT_PUBLIC_URL}/`,
         },
       ],
       image: {
@@ -29,7 +29,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         aspectRatio: '1:1',
       },
       input: {
-        text: 'Noooo, why did you click!?',
+        text: 'Hot potato flipped!',
       },
       postUrl: `${NEXT_PUBLIC_URL}/api/aftertx`,
     }),

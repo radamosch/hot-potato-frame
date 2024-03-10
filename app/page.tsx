@@ -1,46 +1,74 @@
-import { getFrameMetadata } from '@coinbase/onchainkit/frame';
+import { getFrameMetadata } from '@coinbase/onchainkit';
+import { createPublicClient, http , getContract } from 'viem'
+import { base } from 'viem/chains';
+
 import type { Metadata } from 'next';
 import { NEXT_PUBLIC_URL } from './config';
+
+
+import ClickTheButtonABI from './_contracts/ClickTheButtonAbi';
+import { CONTRACT_ADDR } from './config';
+
 
 const frameMetadata = getFrameMetadata({
   buttons: [
     {
-      label: 'Story time',
+      action: 'tx',
+      label: 'Click the Button',
+      target: `${NEXT_PUBLIC_URL}/api/potato`,
     },
     {
-      action: 'tx',
-      label: 'Send Base Sepolia',
-      target: `${NEXT_PUBLIC_URL}/api/tx`,
-      postUrl: `${NEXT_PUBLIC_URL}/api/tx-success`,
+      action: 'link',
+      label: 'WTF?',
+      target: `${NEXT_PUBLIC_URL}/`,
     },
   ],
   image: {
-    src: `${NEXT_PUBLIC_URL}/park-3.png`,
+    src: `${NEXT_PUBLIC_URL}/hot-potato.png`,
     aspectRatio: '1:1',
   },
   input: {
-    text: 'Tell me a story',
+    text: "Don't click the button!",
   },
-  postUrl: `${NEXT_PUBLIC_URL}/api/frame`,
+  postUrl: `${NEXT_PUBLIC_URL}/api/aftertx`,
 });
 
 export const metadata: Metadata = {
-  title: 'zizzamia.xyz',
-  description: 'LFG',
+  title: 'Click my Button',
+  description: "Don't click the button!",
   openGraph: {
-    title: 'zizzamia.xyz',
-    description: 'LFG',
-    images: [`${NEXT_PUBLIC_URL}/park-1.png`],
+    title: 'Click my Button',
+    description: "Don't click the button!",
+    images: [`${NEXT_PUBLIC_URL}/hot-potato.png`],
   },
   other: {
     ...frameMetadata,
   },
 };
 
-export default function Page() {
+export default async function Page() {
+
+  const client = createPublicClient({
+    chain: base,
+    transport: http(),
+  });
+
+  const contract = getContract({
+    address: CONTRACT_ADDR,
+    abi: ClickTheButtonABI,
+    client,
+  });
+
+  const allClicks= await contract.read.getAllClicks();
+
+  const blockNumber = await client.getBlockNumber();
+
   return (
     <>
-      <h1>zizzamia.xyz</h1>
+      <h1>Let's make it hot!</h1>
+      <p>Base block number (reading contract): {blockNumber.toString()}</p>
+      <p></p>
+      <img src={NEXT_PUBLIC_URL+"/hot-potato.png"}/>
     </>
   );
 }
