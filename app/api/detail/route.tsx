@@ -1,18 +1,13 @@
 import { FrameRequest, getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit/frame';
 import { NextRequest, NextResponse } from 'next/server';
 import { getContract, formatEther , } from 'viem'
-
 import { HOT_POTATO_ADDR, NEXT_PUBLIC_URL } from '../../config';
 import abi from '../../_contracts/HotPotatoAbi';
 import  client  from '../../client';
+
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
-  const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
-
-  if (!isValid) {
-    return new NextResponse('Message not valid', { status: 500 });
-  }
-
+  
   const contract = getContract({
     address: HOT_POTATO_ADDR,
     abi: abi,
@@ -27,7 +22,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
   const flipCount= await contract.read.FLIP_COUNT();
 
+
   return new NextResponse(
+
     getFrameHtmlResponse({
       buttons: [
         {
@@ -42,12 +39,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         },
         {
           action: 'tx',
-          label: `🔥  Buy again: 🔥`,
+          label: `🔥  Buy Now! 🔥`,
           target: `${NEXT_PUBLIC_URL}/api/potato`,
         }
       ],
       image: {
-        src: `${NEXT_PUBLIC_URL}/potato-sold.png`,
+        src: `${NEXT_PUBLIC_URL}/potato.webp`,
         aspectRatio: '1:1',
       },
       /*

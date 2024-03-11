@@ -7,39 +7,27 @@ import { HOT_POTATO_ADDR, NEXT_PUBLIC_URL } from './config';
 
 import abi from './_contracts/HotPotatoAbi';
 
-const  doAsyncWork = async ()=>{
 
-  const contract = getContract({
-    address: HOT_POTATO_ADDR,
-    abi: abi,
-    client,
-  });
-
-  const currentPrice= await contract.read.CURRENT_PRICE();
-  //console.log(currentPrice)
-  const nextPrice= await contract.read.nextPrice();
-  const flipCount= await contract.read.FLIP_COUNT();
-  const blockNumber = await client.getBlockNumber();
-  
-
-
-}
-
-const getButtonPrice = async ()=>{ 
+const getButtonPrice = ()=>{ 
   
   // how to get the current price here async?
  
-  return "ddd";
+  return "";
 }
 
 const frameMetadata = getFrameMetadata(
 {
   buttons: [
     {
-      action: 'post',
-      label: `🔥 Tell me! 🔥`,
-      target: `${NEXT_PUBLIC_URL}/api/detail`,
-    }
+      action: 'tx',
+      label: `🔥  Buy:  ${getButtonPrice()} 🔥`,
+      target: `${NEXT_PUBLIC_URL}/api/potato`,
+    },
+    {
+      action: 'link',
+      label: 'INFO?',
+      target: `${NEXT_PUBLIC_URL}/`,
+    },
   ],
   image: {
     src: `${NEXT_PUBLIC_URL}/potato.webp`,
@@ -49,7 +37,7 @@ const frameMetadata = getFrameMetadata(
   input: {
     text: "Don't click the button!",
   },*/
-  //postUrl: `${NEXT_PUBLIC_URL}/api/aftertx`,
+  postUrl: `${NEXT_PUBLIC_URL}/api/aftertx`,
 });
 
 export const metadata: Metadata = {
