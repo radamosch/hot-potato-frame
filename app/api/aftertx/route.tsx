@@ -20,10 +20,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   });
 
   const currentPrice= await contract.read.CURRENT_PRICE();
-  const displayCurrentPrice = parseFloat(formatEther(currentPrice as bigint)).toFixed(4);
+  const displayCurrentPrice = parseFloat(formatEther(currentPrice as bigint)).toFixed(3);
   //console.log(currentPrice)
   const nextPrice= await contract.read.nextPrice();
-  const displayNextPrice = parseFloat(formatEther(nextPrice as bigint)).toFixed(4);
+  const displayNextPrice = parseFloat(formatEther(nextPrice as bigint)).toFixed(3);
 
   const flipCount= await contract.read.FLIP_COUNT();
 
@@ -32,17 +32,17 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       buttons: [
         {
           action: 'post',
-          label: `Current Price: ${displayCurrentPrice}`,
+          label: `Current Price: ${displayCurrentPrice} E`,
           target: "#",
         },
         {
           action: 'post',
-          label: `Next Price: ${displayNextPrice}`,
+          label: `Next Price: ${displayNextPrice} E`,
           target: "#",
         },
         {
           action: 'tx',
-          label: `🔥  Buy again: 🔥`,
+          label: `🔥  Again! 🔥`,
           target: `${NEXT_PUBLIC_URL}/api/potato`,
         }
       ],
