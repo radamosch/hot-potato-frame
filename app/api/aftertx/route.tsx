@@ -20,10 +20,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   });
 
   const currentPrice= await contract.read.CURRENT_PRICE();
-  const displayCurrentPrice = parseFloat(formatEther(currentPrice as bigint)).toFixed(5);
+  const displayCurrentPrice = parseFloat(formatEther(currentPrice as bigint)).toFixed(4);
   //console.log(currentPrice)
   const nextPrice= await contract.read.nextPrice();
-  const displayNextPrice = parseFloat(formatEther(nextPrice as bigint)).toFixed(5);
+  const displayNextPrice = parseFloat(formatEther(nextPrice as bigint)).toFixed(4);
 
   const flipCount= await contract.read.FLIP_COUNT();
 
