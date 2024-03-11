@@ -166,6 +166,7 @@ export default async function Home({ searchParams }: NextServerPageProps) {
       >
         <FrameImage aspectRatio="1:1">
           <div tw="w-full h-full justify-center items-center flex flex-col">
+
             <span tw="font-sans text-[420px]">🥔</span>
             <div tw="flex flex-col">
               <div tw="flex flex-col">
@@ -185,7 +186,7 @@ export default async function Home({ searchParams }: NextServerPageProps) {
           </div>
         </FrameImage>
 
-        <FrameButton>
+        <FrameButton action="tx" target="/api/potato">
           Buy now
         </FrameButton>
 
