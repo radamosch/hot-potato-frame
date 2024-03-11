@@ -31,11 +31,11 @@ contract HotPotato is ERC721, Ownable, Pausable {
     bool private _locked = false; // for re-entrancy guard
 
     uint256 public constant MAX_SUPPLY = 1;
-    uint256 public CURRENT_PRICE = 0.00002 ether; // initial price
+    uint256 public CURRENT_PRICE = 0.001 ether; // initial price
 
     uint256 public constant BASIS_POINTS = 10000; // bps
-    uint256 public constant PRICE_INCREASE_BP = 1000; // bps 10%
-    uint256 public constant FEE_BP = 350; // bps 3.5%
+    uint256 public constant PRICE_INCREASE_BP = 2000; // bps 20%
+    uint256 public constant FEE_BP = 500; // bps 5%
 
     uint256 public constant TOKEN_ID = 1; // Only 1 token
 
