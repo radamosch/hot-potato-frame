@@ -167,7 +167,7 @@ export default async function Home({ searchParams }: NextServerPageProps) {
         <FrameImage aspectRatio="1:1">
           <div tw="w-full h-full justify-center items-center flex flex-col">
 
-            <span tw="font-sans text-[420px]">🥔</span>
+            <span tw="text-[420px]">🥔</span>
             <div tw="flex flex-col">
               <div tw="flex flex-col">
                 <b tw="text-xl uppercase font-bold">Current price</b>

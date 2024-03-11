@@ -75,12 +75,16 @@ export async function POST(
   });
 
   const currentPrice = await contract.read.CURRENT_PRICE();
-
+  const data = encodeFunctionData({
+    abi: abi,
+    functionName: 'purchase',
+  });
   return NextResponse.json({
     chainId: `eip155:${base.id}`,
     method: "eth_sendTransaction",
     params: {
       abi: [],
+      data,
       to: HOT_POTATO_ADDR,
       value: (currentPrice as bigint).toString()
     },
