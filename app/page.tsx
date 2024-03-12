@@ -53,11 +53,11 @@ const frameMetadata = getFrameMetadata(
 });
 
 export const metadata: Metadata = {
-  title: 'Buy me now!',
-  description: "Hurry up!",
+  title: 'Hot Potato!',
+  description: "Hot Potato!",
   openGraph: {
-    title: 'Buy me now!',
-    description: "Hurry up!",
+    title: 'Hot Potato!',
+    description: "Hot Potato!",
     images: [`${NEXT_PUBLIC_URL}/potato.webp`],
   },
   other: {
