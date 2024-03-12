@@ -30,10 +30,10 @@ export default async function Page() {
       <meta name="fc:frame:image" content={`${NEXT_PUBLIC_URL}/potato.webp`} />
       <meta name="fc:frame:post_url" content={`${NEXT_PUBLIC_URL}/api/aftertx`} />
       <meta name="fc:frame:image:aspect_ratio" content="1:1" />
-      <meta name="fc:frame:button:1" content={`Price: ${parseFloat(formatEther(currentPrice as bigint)).toFixed(3)} E`} />
+      <meta name="fc:frame:button:1" content={`Price: ${parseFloat(formatEther(currentPrice as bigint)).toFixed(3)} Ξ`} />
       <meta name="fc:frame:button:1:action" content="post" />
       <meta name="fc:frame:button:1:target" content="#" />
-      <meta name="fc:frame:button:2" content={`Next: ${parseFloat(formatEther(nextPrice as bigint)).toFixed(4)} E`} />
+      <meta name="fc:frame:button:2" content={`Next: ${parseFloat(formatEther(nextPrice as bigint)).toFixed(4)} Ξ`} />
       <meta name="fc:frame:button:2:action" content="post" />
       <meta name="fc:frame:button:2:target" content="#" />
       <meta name="fc:frame:button:3" content="BUY NOW!" />
