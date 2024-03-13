@@ -26,30 +26,33 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const displayNextPrice = parseFloat(formatEther(nextPrice as bigint)).toFixed(4);
 
   const flipCount= await contract.read.FLIP_COUNT();
+  var imageIndex = parseInt(parseInt(flipCount as string)/5+""); // step every 5
+  if (imageIndex>9)imageIndex=9; // 9 is the last image
 
   return new NextResponse(
     getFrameHtmlResponse({
       buttons: [
         {
           action: 'post',
-          label: `Current Price: ${displayCurrentPrice} E`,
+          label: `Price: ${displayCurrentPrice}  Ξ`,
           target: "#",
         },
         {
           action: 'post',
-          label: `Next Price: ${displayNextPrice} E`,
+          label: `Next : ${displayNextPrice} Ξ`,
           target: "#",
         },
         {
           action: 'tx',
-          label: `🔥  Again! 🔥`,
+          label: `🔥 Buy Again! 🔥 `,
           target: `${NEXT_PUBLIC_URL}/api/potato`,
         }
       ],
       image: {
-        src: `${NEXT_PUBLIC_URL}/potato-sold.png`,
+        src: `https://image.hot-potato.lol/get-potato`,
         aspectRatio: '1:1',
       },
+      refreshPeriod: 4,
       /*
       input: {
         text: 'Hot potato flipped!',

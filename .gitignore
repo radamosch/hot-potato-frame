@@ -1,3 +1,7 @@
+*/node_modules
+ssh_to_image_server.sh
+deploy_image_server.sh
+hot-potato-image-server.zip
 node_modules
 .DS_STORE
 .next/

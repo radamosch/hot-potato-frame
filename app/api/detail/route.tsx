@@ -21,6 +21,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const displayNextPrice = parseFloat(formatEther(nextPrice as bigint)).toFixed(4);
 
   const flipCount= await contract.read.FLIP_COUNT();
+  var imageIndex = parseInt(parseInt(flipCount as string)/5+""); // step every 5
+  if (imageIndex>9)imageIndex=9; // 9 is the last image
 
 
   return new NextResponse(
@@ -29,29 +31,31 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       buttons: [
         {
           action: 'post',
-          label: `Price: ${displayCurrentPrice} E`,
+          label: `Price: ${displayCurrentPrice} Ξ`,
           target: "#",
         },
         {
           action: 'post',
-          label: `Next: ${displayNextPrice} E`,
+          label: `Next: ${displayNextPrice} Ξ`,
           target: "#",
         },
         {
           action: 'tx',
-          label: `🔥  Buy Now! 🔥`,
+          label: `Buy Now!`,
           target: `${NEXT_PUBLIC_URL}/api/potato`,
         }
       ],
       image: {
-        src: `${NEXT_PUBLIC_URL}/potato.webp`,
+        src: `https://image.hot-potato.lol/get-potato`,
         aspectRatio: '1:1',
       },
+      refreshPeriod: 4,
       /*
       input: {
         text: 'Hot potato flipped!',
       },*/
       postUrl: `${NEXT_PUBLIC_URL}/api/aftertx`,
+     
     }),
   );
 }
