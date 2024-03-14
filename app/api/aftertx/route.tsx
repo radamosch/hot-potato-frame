@@ -18,7 +18,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     return new NextResponse('Message not valid', { status: 500 });
   }
 
-  await sleep(5000); // sleep for 8 seconds to allow tran
+  await sleep(10000); // sleep for 10 seconds to allow tran
 
   const contract = getContract({
     address: HOT_POTATO_ADDR,
