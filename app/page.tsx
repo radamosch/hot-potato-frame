@@ -2,7 +2,9 @@ import { getFrameMetadata } from '@coinbase/onchainkit';
 import { getContract, formatEther, } from 'viem'
 import client from './client';
 
-import type { Metadata } from 'next';
+import type { Metadata  } from 'next';
+import { NextResponse } from 'next/server'
+
 import { HOT_POTATO_ADDR, NEXT_PUBLIC_URL } from './config';
 
 import abi from './_contracts/HotPotatoAbi';
@@ -36,9 +38,12 @@ export default async function Page() {
 
   const timestamp = Math.floor(Date.now() / 1000);
 
+  let response = NextResponse.next()
+  response.headers.set("Cache-Control:" , "max-age=3");
+
   return (
     <>
-      <meta name="og:image" content={`${NEXT_PUBLIC_URL}/potato.webp`} />
+      <meta name="og:image" content={`${NEXT_PUBLIC_URL}/potato-base.png`} />
       <meta name="fc:frame" content="vNext" />
       <meta name="fc:frame:image" content={`https://image.hot-potato.lol/get-potato?${timestamp}`} />
       <meta name="fc:frame:refresh_period" content="4"/>

@@ -29,9 +29,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   var imageIndex = parseInt(parseInt(flipCount as string)/5+""); // step every 5
   if (imageIndex>9)imageIndex=9; // 9 is the last image
 
+  const timestamp = Math.floor(Date.now() / 1000);
+
   return new NextResponse(
     getFrameHtmlResponse({
       buttons: [
+        /*
         {
           action: 'post',
           label: `Price: ${displayCurrentPrice}  Ξ`,
@@ -41,7 +44,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           action: 'post',
           label: `Next : ${displayNextPrice} Ξ`,
           target: "#",
-        },
+        },*/
         {
           action: 'tx',
           label: `🔥 Buy Again! 🔥 `,
@@ -49,7 +52,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         }
       ],
       image: {
-        src: `https://image.hot-potato.lol/get-potato`,
+        src: `https://image.hot-potato.lol/get-potato?${timestamp}`,
         aspectRatio: '1:1',
       },
       refreshPeriod: 4,
