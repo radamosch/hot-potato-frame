@@ -43,7 +43,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         },*/
         {
           action: 'tx',
-          label: `Buy Now!`,
+          label: `BUY NOW!`,
           target: `${NEXT_PUBLIC_URL}/api/potato`,
         }
       ],
