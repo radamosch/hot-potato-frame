@@ -5,6 +5,11 @@ import { getContract, formatEther , } from 'viem'
 import { HOT_POTATO_ADDR, NEXT_PUBLIC_URL } from '../../config';
 import abi from '../../_contracts/HotPotatoAbi';
 import  client  from '../../client';
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
   const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
@@ -12,6 +17,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   if (!isValid) {
     return new NextResponse('Message not valid', { status: 500 });
   }
+
+  await sleep(5000); // sleep for 8 seconds to allow tran
 
   const contract = getContract({
     address: HOT_POTATO_ADDR,
