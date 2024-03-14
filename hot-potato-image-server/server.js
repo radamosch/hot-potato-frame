@@ -53,8 +53,16 @@ app.get('/get-potato', async (req, res) => {
             await contract.read.FLIP_COUNT()
         ]);
 
-        const image = await Jimp.read('./potato_unedited.png');
-        const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
+        var imageIndex = parseInt(parseInt(flipCount)/5+""); // step every 5
+        if (imageIndex>9)imageIndex=9; // 9 is the last image
+        const image = await Jimp.read(`./potato-${imageIndex}.png`);
+
+        const font = await Jimp.loadFont(Jimp.FONT_SANS_14_BLACK);
+
+        image.print(font, 63, 160, "There is only 1!")
+        image.print(font, 63, 184, "EACH TIME IT FLIPS, THE PRICE RISES BY 25%!");
+        image.print(font, 63, 208, "Buy & Share!");
+        image.print(font, 63, 232, "Play at your own risk.");
 
         const currentPriceText = parseFloat(formatEther(currentPrice)).toFixed(3) + " ETH"
         const nextPriceText = parseFloat(formatEther(nextPrice)).toFixed(4) + " ETH"

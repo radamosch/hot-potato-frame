@@ -43,6 +43,7 @@ export default async function Page() {
 
   return (
     <>
+    <head>
       <meta name="og:image" content={`${NEXT_PUBLIC_URL}/potato-base.png`} />
       <meta name="fc:frame" content="vNext" />
       <meta name="fc:frame:image" content={`https://image.hot-potato.lol/get-potato?${timestamp}`} />
@@ -60,6 +61,10 @@ export default async function Page() {
       <meta name="fc:frame:button:1" content="BUY NOW!" />
       <meta name="fc:frame:button:1:action" content="tx" />
       <meta name="fc:frame:button:1:target" content={`${NEXT_PUBLIC_URL}/api/potato`} />
+    </head>
+    <body>
+      <img src={`https://image.hot-potato.lol/get-potato?${timestamp}`}/>
+    </body>
     </>
   );
 }
