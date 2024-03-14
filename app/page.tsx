@@ -34,11 +34,13 @@ export default async function Page() {
 
   console.log(imageIndex);
 
+  const timestamp = Math.floor(Date.now() / 1000);
+
   return (
     <>
       <meta name="og:image" content={`${NEXT_PUBLIC_URL}/potato.webp`} />
       <meta name="fc:frame" content="vNext" />
-      <meta name="fc:frame:image" content={`https://image.hot-potato.lol/get-potato`} />
+      <meta name="fc:frame:image" content={`https://image.hot-potato.lol/get-potato?${timestamp}`} />
       <meta name="fc:frame:refresh_period" content="4"/>
       <meta name="fc:frame:post_url" content={`${NEXT_PUBLIC_URL}/api/aftertx`} />
       <meta name="fc:frame:image:aspect_ratio" content="1:1" />

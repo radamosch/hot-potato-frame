@@ -64,10 +64,16 @@ app.get('/get-potato', async (req, res) => {
         image.print(font, 63, 406, nextPriceText);
         image.print(font, 63, 506, flipCountText);
 
+        const timestamp = Math.floor(Date.now() / 1000);
+        image.print(font, 63, 556, timestamp);
+
         const outputPath = './potato.png';
         await image.writeAsync(outputPath);
+        
+        res.set('Cache-Control', 'max-age=5');
 
         res.sendFile(path.join(__dirname, '/potato.png'));
+
 
     } catch (error) {
         console.error('Error fetching prices or generating the image', error);
