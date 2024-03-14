@@ -53,7 +53,9 @@ app.get('/get-potato', async (req, res) => {
             await contract.read.FLIP_COUNT()
         ]);
 
-        var imageIndex = parseInt(parseInt(flipCount) / 5 + ""); // step every 5
+        var imageIndex = parseInt(parseInt(flipCount) / 5 + "")+1; // step every 5
+        var imageIndex = 5;
+
         if (imageIndex > 9) imageIndex = 9; // 9 is the last image
         const image = await Jimp.read(`./${imageIndex}.jpg`);
 

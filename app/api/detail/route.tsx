@@ -49,7 +49,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       ],
       image: {
         src: `https://image.hot-potato.lol/get-potato?${timestamp}`,
-        aspectRatio: '1:1',
+        aspectRatio: '1.91:1',
       },
       refreshPeriod: 4,
       /*

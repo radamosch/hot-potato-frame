@@ -49,7 +49,7 @@ export default async function Page() {
       <meta name="fc:frame:image" content={`https://image.hot-potato.lol/get-potato?${timestamp}`} />
       <meta name="fc:frame:refresh_period" content="4"/>
       <meta name="fc:frame:post_url" content={`${NEXT_PUBLIC_URL}/api/aftertx`} />
-      <meta name="fc:frame:image:aspect_ratio" content="1:1" />
+      <meta name="fc:frame:image:aspect_ratio" content="1.91:1" />
       {/*
       <meta name="fc:frame:button:1" content={`Price: ${parseFloat(formatEther(currentPrice as bigint)).toFixed(3)} Ξ`} />
       <meta name="fc:frame:button:1:action" content="post" />
